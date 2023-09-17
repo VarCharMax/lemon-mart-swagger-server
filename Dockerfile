@@ -1,4 +1,4 @@
-FROM duluca/minimal-node-build-env:8.11.1
+FROM duluca/minimal-node-build-env:latest
 
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
