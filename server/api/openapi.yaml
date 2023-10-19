@@ -1,0 +1,195 @@
+openapi: 3.0.1
+info:
+  title: LemonMart
+  description: LemonMart API
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+  description: Local environment
+- url: https://mystagingserver.com/v1
+  description: Staging environment
+- url: https://myprodserver.com/v1
+  description: Production environment
+paths:
+  /users:
+    get:
+      description: |
+        Searches and returns `User` objects.
+        Optional query params determines values of returned array
+      operationId: usersGET
+      parameters:
+      - name: search
+        in: query
+        description: Search text
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: The number of items to skip before starting to collect the result
+          set.
+        required: false
+        style: form
+        explode: true
+        schema:
+          minimum: 0
+          type: integer
+      - name: limit
+        in: query
+        description: The numbers of items to return.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 50
+          minimum: 1
+          type: integer
+          default: 20
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+      x-swagger-router-controller: Default
+  /user/{id}:
+    get:
+      description: Gets a `User` object by id
+      operationId: userIdGET
+      parameters:
+      - name: id
+        in: path
+        description: User's unique id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-swagger-router-controller: Default
+    put:
+      description: Updates a `User` object given id
+      operationId: userIdPUT
+      parameters:
+      - name: id
+        in: path
+        description: User's unique id
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: userData
+        in: query
+        description: Updated user object
+        required: false
+        style: form
+        explode: false
+        schema:
+          $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    Role:
+      type: string
+      enum:
+      - clerk
+      - cashier
+      - manager
+    Name:
+      type: object
+      properties:
+        first:
+          type: string
+        middle:
+          type: string
+        last:
+          type: string
+      example:
+        middle: middle
+        last: last
+        first: first
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          $ref: '#/components/schemas/Name'
+        picture:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        userStatus:
+          type: boolean
+        lastModified:
+          type: string
+          format: date
+        lastModifiedBy:
+          type: string
+      example:
+        role: clerk
+        userStatus: true
+        lastModifiedBy: lastModifiedBy
+        name:
+          middle: middle
+          last: last
+          first: first
+        id: id
+        lastModified: 2000-01-23
+        email: email
+        picture: picture
+    Users:
+      type: array
+      properties:
+        total:
+          type: number
+          format: int32
+      items:
+        $ref: '#/components/schemas/ArrayOfUser'
+    ArrayOfUser:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+  parameters:
+    offsetParam:
+      name: offset
+      in: query
+      description: The number of items to skip before starting to collect the result
+        set.
+      required: false
+      style: form
+      explode: true
+      schema:
+        minimum: 0
+        type: integer
+    limitParam:
+      name: limit
+      in: query
+      description: The numbers of items to return.
+      required: false
+      style: form
+      explode: true
+      schema:
+        maximum: 50
+        minimum: 1
+        type: integer
+        default: 20

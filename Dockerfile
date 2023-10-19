@@ -1,4 +1,4 @@
-FROM duluca/minimal-node-build-env:latest
+FROM node:20-alpine
 
 RUN mkdir -p /usr/src
 WORKDIR /usr/src

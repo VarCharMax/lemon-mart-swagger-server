@@ -11,7 +11,7 @@ exports.userIdGET = function(id) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "role" : { },
+  "role" : "clerk",
   "userStatus" : true,
   "lastModifiedBy" : "lastModifiedBy",
   "name" : {
@@ -44,7 +44,7 @@ exports.userIdPUT = function(id,userData) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "role" : { },
+  "role" : "clerk",
   "userStatus" : true,
   "lastModifiedBy" : "lastModifiedBy",
   "name" : {
@@ -77,10 +77,59 @@ exports.userIdPUT = function(id,userData) {
 exports.usersGET = function(search,offset,limit) {
   return new Promise(function(resolve, reject) {
     var examples = {};
-    examples['application/json'] = {
-  "total" : 0.80082819046101150206595775671303272247314453125,
-  "items" : ""
-};
+    examples['application/json'] = [ [ {
+  "role" : "clerk",
+  "userStatus" : true,
+  "lastModifiedBy" : "lastModifiedBy",
+  "name" : {
+    "middle" : "middle",
+    "last" : "last",
+    "first" : "first"
+  },
+  "id" : "id",
+  "lastModified" : "2000-01-23",
+  "email" : "email",
+  "picture" : "picture"
+}, {
+  "role" : "clerk",
+  "userStatus" : true,
+  "lastModifiedBy" : "lastModifiedBy",
+  "name" : {
+    "middle" : "middle",
+    "last" : "last",
+    "first" : "first"
+  },
+  "id" : "id",
+  "lastModified" : "2000-01-23",
+  "email" : "email",
+  "picture" : "picture"
+} ], [ {
+  "role" : "clerk",
+  "userStatus" : true,
+  "lastModifiedBy" : "lastModifiedBy",
+  "name" : {
+    "middle" : "middle",
+    "last" : "last",
+    "first" : "first"
+  },
+  "id" : "id",
+  "lastModified" : "2000-01-23",
+  "email" : "email",
+  "picture" : "picture"
+}, {
+  "role" : "clerk",
+  "userStatus" : true,
+  "lastModifiedBy" : "lastModifiedBy",
+  "name" : {
+    "middle" : "middle",
+    "last" : "last",
+    "first" : "first"
+  },
+  "id" : "id",
+  "lastModified" : "2000-01-23",
+  "email" : "email",
+  "picture" : "picture"
+} ] ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
